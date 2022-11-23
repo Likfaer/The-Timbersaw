@@ -421,7 +421,7 @@ GameObject:
   - component: {fileID: 826774063}
   - component: {fileID: 826774062}
   m_Layer: 5
-  m_Name: Button
+  m_Name: "\u041C\u0430\u0433\u0430\u0437\u0438\u043D (\u043D\u0435\u0442\u0443)"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -567,8 +567,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 150, y: -225}
-  m_SizeDelta: {x: 350, y: 350}
+  m_AnchoredPosition: {x: 93.93, y: -115.34}
+  m_SizeDelta: {x: 462.15, y: 569.31}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1322240666
 MonoBehaviour:
@@ -595,7 +595,7 @@ MonoBehaviour:
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -634,7 +634,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9d020e38068f97f459cdba4b7fa87797, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 617cd11da6944ad44bb9b0bdc4937de5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -845,7 +845,7 @@ GameObject:
   - component: {fileID: 1765544992}
   - component: {fileID: 1765544995}
   m_Layer: 5
-  m_Name: Button
+  m_Name: "\u0414\u043E\u0441\u0442\u0438\u0436\u0435\u043D\u0438\u044F"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

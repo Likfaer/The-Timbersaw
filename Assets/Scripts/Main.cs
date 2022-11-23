@@ -14,6 +14,11 @@ public class Main : MonoBehaviour
     {
         money = PlayerPrefs.GetInt("money");
         total_money = PlayerPrefs.GetInt("total_money");
+        bool isFirst = PlayerPrefs.GetInt("isFirst") == 1 ? true : false;
+        if (isFirst)
+        {
+            StartCoroutine(IdleFarm());
+        }
     }
 
     public void ButtonClick()
@@ -22,6 +27,14 @@ public class Main : MonoBehaviour
         total_money++;
         PlayerPrefs.SetInt("money", money);
         PlayerPrefs.SetInt("total_money", total_money);
+    }
+    IEnumerator IdleFarm()
+    {
+        yield return new WaitForSeconds(1);
+        money++;
+        //Debug.Log(money);
+        PlayerPrefs.SetInt("money", money);
+        StartCoroutine(IdleFarm());
     }
 
     public void ToAchievements()

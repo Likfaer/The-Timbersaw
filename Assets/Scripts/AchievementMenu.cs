@@ -6,12 +6,14 @@ using UnityEngine.SceneManagement;
 
 public class AchievementMenu : MonoBehaviour
 {
+    public int money;
     public int total_money;
     [SerializeField] Button firstAch;
     [SerializeField] bool isFirst;
     // Start is called before the first frame update
     void Start()
     {
+        money = PlayerPrefs.GetInt("money");
         total_money = PlayerPrefs.GetInt("total_money");
         isFirst = PlayerPrefs.GetInt("isFirst") == 1 ? true : false;
         if (total_money >= 10 && !isFirst)
@@ -21,10 +23,20 @@ public class AchievementMenu : MonoBehaviour
         else
         {
             firstAch.interactable = false;
+            StartCoroutine(IdleFarm());
         }
+    }
+    IEnumerator IdleFarm()
+    {
+        yield return new WaitForSeconds(1);
+        money++;
+        //Debug.Log(money);
+        PlayerPrefs.SetInt("money", money);
+        StartCoroutine(IdleFarm());
     }
     public void GetFirst()
     {
+       
         if (!isFirst)
         {
             int money = PlayerPrefs.GetInt("money");
