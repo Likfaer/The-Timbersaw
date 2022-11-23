@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class AchievementMeny : MonoBehaviour
 {
@@ -17,7 +19,7 @@ public class AchievementMeny : MonoBehaviour
         }
         else
         {
-            firstAch.interactable = FALSE;
+            firstAch.interactable = false;
         }
     }
     public void GetFirst()
