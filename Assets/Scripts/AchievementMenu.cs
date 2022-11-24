@@ -44,11 +44,13 @@ public class AchievementMenu : MonoBehaviour
             PlayerPrefs.SetInt("money", money);
             isFirst = true;
             PlayerPrefs.SetInt("isFirst", isFirst ? 1 : 0);
+
         }
     }
     public void ToMenu()
     {
         SceneManager.LoadScene(0);
+
     }
 
     // Update is called once per frame

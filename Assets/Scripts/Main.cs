@@ -27,6 +27,7 @@ public class Main : MonoBehaviour
         total_money++;
         PlayerPrefs.SetInt("money", money);
         PlayerPrefs.SetInt("total_money", total_money);
+
     }
     IEnumerator IdleFarm()
     {
@@ -35,6 +36,7 @@ public class Main : MonoBehaviour
         //Debug.Log(money);
         PlayerPrefs.SetInt("money", money);
         StartCoroutine(IdleFarm());
+
     }
 
     public void ToAchievements()
