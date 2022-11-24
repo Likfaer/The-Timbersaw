@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEditor.VersionControl;
 
 public class AchievementMenu : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class AchievementMenu : MonoBehaviour
     {
         total_money = PlayerPrefs.GetInt("total_money");
         isFirst = PlayerPrefs.GetInt("isFirst") == 1 ? true : false;
+<<<<<<< Updated upstream
         
         RectTransform rectT = content.GetComponent<RectTransform>();
         rectT.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
@@ -33,6 +35,13 @@ public class AchievementMenu : MonoBehaviour
             StartCoroutine(IdleFarm());
         }*/
         
+=======
+
+        RectTransform rectT = content.GetComponent<RectTransform>();
+        rectT.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+        _group = GetComponent<VerticalLayoutGroup>();
+        setAchievs();
+>>>>>>> Stashed changes
 
         /*if (total_money >= 10 && !isFirst)
         {
@@ -54,6 +63,7 @@ public class AchievementMenu : MonoBehaviour
 
     private void RemovedList()
     {
+<<<<<<< Updated upstream
         foreach(var elem in list)
         {
             Destroy(elem);
@@ -68,6 +78,18 @@ public class AchievementMenu : MonoBehaviour
     void setAchievs()
     {
         
+=======
+        foreach (var elem in list)
+        {
+            Destroy(elem);
+        }
+        list.Clear();
+    }
+
+    void setAchievs()
+    {
+
+>>>>>>> Stashed changes
         RectTransform rectT = content.GetComponent<RectTransform>();
         rectT.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
         RemovedList();
@@ -92,6 +114,7 @@ public class AchievementMenu : MonoBehaviour
         }
     }
 
+<<<<<<< Updated upstream
     /*void GetAchievment(int id)
     {
         switch (id)
@@ -107,6 +130,8 @@ public class AchievementMenu : MonoBehaviour
         }
     }*/
 
+=======
+>>>>>>> Stashed changes
     IEnumerator IdleFarm()
     {
         yield return new WaitForSeconds(1);
@@ -116,9 +141,14 @@ public class AchievementMenu : MonoBehaviour
         StartCoroutine(IdleFarm());
     }
     /*public void GetFirst()
+<<<<<<< Updated upstream
 >>>>>>> Stashed changes
 >>>>>>> Stashed changes
     {
+=======
+    {
+
+>>>>>>> Stashed changes
         if (!isFirst)
         {
             int money = PlayerPrefs.GetInt("money");
@@ -133,9 +163,13 @@ public class AchievementMenu : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
+
+
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
+
+
