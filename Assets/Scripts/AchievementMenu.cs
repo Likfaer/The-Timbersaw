@@ -8,13 +8,12 @@ public class AchievementMenu : MonoBehaviour
 {
     public int money;
     public int total_money;
-    //[SerializeField] Button firstAch;
     [SerializeField] bool isFirst;
 
     public string[] arrayTitles; //for achievments titles
     public Sprite[] arraySprites; //for achievments sprites
-    public GameObject button; //achieve button
-    public GameObject content;
+    public GameObject button; // Achievement button (for taking achievement)
+    public GameObject content; // list of buttons
 
     private List<GameObject> list = new List<GameObject>();
     private VerticalLayoutGroup _group;
@@ -30,15 +29,10 @@ public class AchievementMenu : MonoBehaviour
         _group = GetComponent<VerticalLayoutGroup>();
         setAchievs();
 
-        /*if (total_money >= 10 && !isFirst)
+        if (isFirst)
         {
-            firstAch.interactable = true;
-        }
-        else
-        {
-            firstAch.interactable = false;
             StartCoroutine(IdleFarm());
-        }*/
+        }
     }
 
     private void RemovedList()
@@ -60,19 +54,59 @@ public class AchievementMenu : MonoBehaviour
             //create sample for achievment
             var pr1 = Instantiate(button, transform); // sample
             var h = pr1.GetComponent<RectTransform>().rect.height; // height
-            var tr = GetComponent<RectTransform>(); //feature component RectTransporm
-            tr.sizeDelta = new Vector2(tr.rect.width, h * arrayTitles.Length); // size feateru component object
+            var tr = GetComponent<RectTransform>(); //features of component RectTransporm
+            tr.sizeDelta = new Vector2(tr.rect.width, h * arrayTitles.Length); // size of features
             Destroy(pr1);
 
             for (var i = 0; i < arrayTitles.Length; i++)
             {
                 var pr = Instantiate(button, transform);
-                pr.GetComponentInChildren<Text>().text = arrayTitles[i];//*
-                pr.GetComponentInChildren<Image>().sprite = arraySprites[i];
+                pr.GetComponentInChildren<Text>().text = arrayTitles[i]; // text of each component
+                pr.GetComponentInChildren<Image>().sprite = arraySprites[i]; // image of each component
                 var i1 = i;
-                pr.GetComponent<Button>().onClick.AddListener(() => PlayerPrefs.SetInt("money", money += 10));
+                pr.GetComponent<Button>().onClick.AddListener(() => GetAchievement(i1));
                 list.Add(pr);
             }
+        }
+    }
+    bool IsTaken(int id)
+    {
+        string line = "Ach" + id;
+        if (PlayerPrefs.GetInt(line) == 0)
+        {
+            PlayerPrefs.SetInt(line, 1);
+            return true;
+        }
+        else return false;
+        
+    }
+    void GetAchievement(int id)
+    {
+        string line = "Ach" + id;
+        switch (id)
+        {
+            case 0:
+                if (money > 100)
+                {
+                    if (IsTaken(id))
+                    {
+                        PlayerPrefs.SetInt(line, 1);
+                        money += 10;
+                        PlayerPrefs.SetInt("money", money);
+                    }
+                }
+                break;
+            case 1:
+                if (money > 1000)
+                {
+                    if (IsTaken(id))
+                    {
+                        money += 100;
+                        PlayerPrefs.SetInt(line, 1);
+                        PlayerPrefs.SetInt("money", money);
+                    }
+                }
+                break;
         }
     }
 
