@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEditor;
+using System.IO;
 
 public class AchievementMenu : MonoBehaviour
 {
@@ -22,6 +24,16 @@ public class AchievementMenu : MonoBehaviour
         money = PlayerPrefs.GetInt("money");
         total_money = PlayerPrefs.GetInt("total_money");
         isFirst = PlayerPrefs.GetInt("isFirst") == 1 ? true : false;
+        _group = GetComponent<VerticalLayoutGroup>();
+        setAchievs();
+        Zaika();
+        if (isFirst)
+        {
+            StartCoroutine(IdleFarm());
+        }
+    }
+    void Zaika()
+    {
         Button[] buttons = FindObjectsOfType<Button>();
         foreach (var item in buttons)
         {
@@ -31,33 +43,7 @@ public class AchievementMenu : MonoBehaviour
                 item.enabled = false;
             }
         }
-        _group = GetComponent<VerticalLayoutGroup>();
-        setAchievs();
-        if (total_money > 1000)
-        {
-            PlayerPrefs.SetInt("Crolik", 1);
-        }
-        else
-        {
-            PlayerPrefs.SetInt("Crolik", 0);
-        }
-        if (PlayerPrefs.GetInt("Crolik") == 1)
-        {
-            foreach (var item in buttons)
-            {
-                if (item.gameObject.name == "CrolikButton")
-                {
-                    item.interactable = true;
-                    item.enabled = true;
-                }
-            }
-        }
-        if (isFirst)
-        {
-            StartCoroutine(IdleFarm());
-        }
     }
-
     private void RemovedList()
     {
         foreach (var elem in list)
@@ -84,7 +70,7 @@ public class AchievementMenu : MonoBehaviour
                 pr.GetComponentInChildren<Text>().text = arrayTitles[i]; // text of each component
                 pr.GetComponentsInChildren<Image>()[0].sprite = arraySprites[i]; // image of each component
                 string line = "Ach" + i;
-                Debug.Log(PlayerPrefs.GetInt(line));
+                //Debug.Log(PlayerPrefs.GetInt(line));
                 if (PlayerPrefs.GetInt(line) == 1)
                 {
                     pr.GetComponent<Button>().interactable = false;
@@ -106,6 +92,7 @@ public class AchievementMenu : MonoBehaviour
         }
         else return false;  
     }
+
     void GetAchievement(int id)
     {
         string line = "Ach" + id;
