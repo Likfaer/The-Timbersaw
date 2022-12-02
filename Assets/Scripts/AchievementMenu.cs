@@ -22,7 +22,6 @@ public class AchievementMenu : MonoBehaviour
         money = PlayerPrefs.GetInt("money");
         total_money = PlayerPrefs.GetInt("total_money");
         isFirst = PlayerPrefs.GetInt("isFirst") == 1 ? true : false;
-
         Button[] buttons = FindObjectsOfType<Button>();
         foreach (var item in buttons)
         {
@@ -32,8 +31,6 @@ public class AchievementMenu : MonoBehaviour
                 item.enabled = false;
             }
         }
-        RectTransform rectT = content.GetComponent<RectTransform>();
-        rectT.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
         _group = GetComponent<VerticalLayoutGroup>();
         setAchievs();
         if (total_money > 1000)
@@ -81,8 +78,6 @@ public class AchievementMenu : MonoBehaviour
             var tr = GetComponent<RectTransform>(); //features of component RectTransporm
             tr.sizeDelta = new Vector2(tr.rect.width, h * arrayTitles.Length); // size of features
             Destroy(pr1);
-            RectTransform rectT = content.GetComponent<RectTransform>();
-            rectT.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
             for (var i = 0; i < arrayTitles.Length; i++)
             {
                 var pr = Instantiate(button, transform);
@@ -103,13 +98,13 @@ public class AchievementMenu : MonoBehaviour
     bool IsTaken(int id)
     {
         string line = "Ach" + id;
-        Debug.Log(line + " " + PlayerPrefs.GetInt(line));
+        //Debug.Log(line + " " + PlayerPrefs.GetInt(line));
         if (PlayerPrefs.GetInt(line) == 0)
         {
             PlayerPrefs.SetInt(line, 1);
             return true;
         }
-        else return false;
+        else return false;  
     }
     void GetAchievement(int id)
     {
