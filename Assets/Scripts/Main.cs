@@ -9,9 +9,11 @@ public class Main : MonoBehaviour
     [SerializeField] int money;
     public int total_money;
     public Text MoneyText;
+    public AudioSource audioSource;
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         money = PlayerPrefs.GetInt("money");
         total_money = PlayerPrefs.GetInt("total_money");
         bool isFirst = PlayerPrefs.GetInt("isFirst") == 1 ? true : false;
@@ -27,6 +29,7 @@ public class Main : MonoBehaviour
         total_money++;
         PlayerPrefs.SetInt("money", money);
         PlayerPrefs.SetInt("total_money", total_money);
+        audioSource.Play();
     }
     IEnumerator IdleFarm()
     {
