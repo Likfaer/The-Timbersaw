@@ -8,6 +8,8 @@ public class Main : MonoBehaviour
 {
     [SerializeField] int money;
     public int total_money;
+    public int multiplayer; // miltiplayer buffs
+    public int buffs; //buffs
     public Text MoneyText;
     public AudioSource audioSource;
 
@@ -16,6 +18,7 @@ public class Main : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         money = PlayerPrefs.GetInt("money");
         total_money = PlayerPrefs.GetInt("total_money");
+        buffs = PlayerPrefs.GetInt("buffs");
         bool isFirst = PlayerPrefs.GetInt("isFirst") == 1 ? true : false;
         if (isFirst)
         {
@@ -34,7 +37,7 @@ public class Main : MonoBehaviour
     IEnumerator IdleFarm()
     {
         yield return new WaitForSeconds(1);
-        money++;
+        money += buffs;
         //Debug.Log(money);
         PlayerPrefs.SetInt("money", money);
         StartCoroutine(IdleFarm());
@@ -43,6 +46,11 @@ public class Main : MonoBehaviour
     public void ToAchievements()
     {
         SceneManager.LoadScene(1);
+    }
+
+    public void ToShop()
+    {
+        SceneManager.LoadScene(2);
     }
 
     // Update is called once per frame
