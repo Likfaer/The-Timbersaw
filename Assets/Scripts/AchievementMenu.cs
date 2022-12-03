@@ -10,7 +10,6 @@ public class AchievementMenu : MonoBehaviour
 {
     public int money;
     public int total_money;
-    [SerializeField] bool isFirst;
 
     public string[] arrayTitles; //for achievments titles
     public Sprite[] arraySprites; //for achievments sprites
@@ -23,14 +22,9 @@ public class AchievementMenu : MonoBehaviour
     {
         money = PlayerPrefs.GetInt("money");
         total_money = PlayerPrefs.GetInt("total_money");
-        isFirst = PlayerPrefs.GetInt("isFirst") == 1 ? true : false;
         _group = GetComponent<VerticalLayoutGroup>();
         setAchievs();
         Zaika();
-        if (isFirst)
-        {
-            StartCoroutine(IdleFarm());
-        }
     }
     void Zaika()
     {
@@ -133,15 +127,6 @@ public class AchievementMenu : MonoBehaviour
                 }
                 break;
         }
-    }
-
-    IEnumerator IdleFarm()
-    {
-        yield return new WaitForSeconds(1);
-        money++;
-        //Debug.Log(money);
-        PlayerPrefs.SetInt("money", money);
-        StartCoroutine(IdleFarm());
     }
     public void Cralya()
     {

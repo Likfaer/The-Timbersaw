@@ -7,14 +7,17 @@ using UnityEditor.Experimental.GraphView;
 
 public class Shop : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public Text MoneyText;
+    public Text IncomeText;
     public int money;
     public int total_money;
-    public int[] multiplayer = {1, 1, 1, 1, 1}; // miltiplayer buffs
+    public int tickmoney;
+
+    public int[] multiplayer = new int[5] {1, 2, 5, 7, 10}; // miltiplayer buffs
     public int[] intbuffs = new int[5]; 
     public string buffs; //buffs
     public int[] prises = { 100, 200, 500, 700, 1000 }; //shop prises
-    public Text MoneyText;
+    
 
     public string[] arrayTitles; //for achievments titles
     public Sprite[] arraySprites; //for achievments sprites
@@ -27,6 +30,7 @@ public class Shop : MonoBehaviour
     {
         money = PlayerPrefs.GetInt("money");
         total_money = PlayerPrefs.GetInt("total_money");
+        tickmoney = PlayerPrefs.GetInt("tickmoney");
         if (PlayerPrefs.GetString("buffs") == "0") buffs = "0,0,0,0,0";
         else buffs = PlayerPrefs.GetString("buffs");
         intbuffs = StringToArray(buffs);
@@ -45,6 +49,7 @@ public class Shop : MonoBehaviour
         }
         return temp_arr_int;
     }
+
     void setBuffs()
     {
         RectTransform rectT = content.GetComponent<RectTransform>();
@@ -61,7 +66,7 @@ public class Shop : MonoBehaviour
             for (var i = 0; i < arrayTitles.Length; i++)
             {
                 var pr = Instantiate(button, transform);
-                pr.GetComponentInChildren<Text>().text = arrayTitles[i]; // text of each component
+                pr.GetComponentInChildren<Text>().text = arrayTitles[i] + " " + intbuffs[i]; // text of each component
                 pr.GetComponentInChildren<Image>().sprite = arraySprites[i]; // image of each component
                 var i1 = i;
                 if (!Prises(i)) 
@@ -137,10 +142,14 @@ public class Shop : MonoBehaviour
     IEnumerator IdleFarm()
     {
         yield return new WaitForSeconds(1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         for (int i = 0; i < intbuffs.Length; i++)
         {
+            Debug.Log(intbuffs[i] + " * " + multiplayer[i]);
             money += intbuffs[i] * multiplayer[i];
         }
+        tickmoney = money - PlayerPrefs.GetInt("money");
+        PlayerPrefs.SetInt("tickmoney", tickmoney);
         //Debug.Log(money);
         PlayerPrefs.SetInt("money", money);
         StartCoroutine(IdleFarm());
@@ -150,6 +159,7 @@ public class Shop : MonoBehaviour
     void Update()
     {
         MoneyText.text = money.ToString();
+        IncomeText.text = tickmoney.ToString();
     }
     public void ToMenu()
     {

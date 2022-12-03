@@ -6,24 +6,28 @@ using UnityEngine.SceneManagement;
 
 public class Main : MonoBehaviour
 {
+    public Text MoneyText;
+    public Text IncomeText;
     [SerializeField] int money;
     public int total_money;
+    public int tickmoney;
+
     public int multiplayer; // miltiplayer buffs
     public int buffs; //buffs
-    public Text MoneyText;
     public AudioSource audioSource;
 
+    public Income m_someOtherScriptOnAnotherGameObject;
     private void Start()
     {
+        m_someOtherScriptOnAnotherGameObject = GameObject.FindObjectOfType(typeof(Income)) as Income;
         audioSource = GetComponent<AudioSource>();
         money = PlayerPrefs.GetInt("money");
         total_money = PlayerPrefs.GetInt("total_money");
+        tickmoney = PlayerPrefs.GetInt("tickmoney");
         buffs = PlayerPrefs.GetInt("buffs");
-        bool isFirst = PlayerPrefs.GetInt("isFirst") == 1 ? true : false;
-        if (isFirst)
-        {
-            StartCoroutine(IdleFarm());
-        }
+
+        m_someOtherScriptOnAnotherGameObject.IdleFarm();
+        StartCoroutine(CoinsUpdate());
     }
 
     public void ButtonClick()
@@ -34,13 +38,13 @@ public class Main : MonoBehaviour
         PlayerPrefs.SetInt("total_money", total_money);
         audioSource.Play();
     }
-    IEnumerator IdleFarm()
+    IEnumerator CoinsUpdate()
     {
         yield return new WaitForSeconds(1);
-        money += buffs;
+        money = m_someOtherScriptOnAnotherGameObject.money;
         //Debug.Log(money);
         PlayerPrefs.SetInt("money", money);
-        StartCoroutine(IdleFarm());
+        StartCoroutine(CoinsUpdate());
     }
 
     public void ToAchievements()
@@ -57,5 +61,6 @@ public class Main : MonoBehaviour
     void Update()
     {
         MoneyText.text = money.ToString();
+        IncomeText.text = tickmoney.ToString();
     }
 }

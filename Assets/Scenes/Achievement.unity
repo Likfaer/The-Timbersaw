@@ -689,11 +689,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   money: 0
   total_money: 0
-  isFirst: 0
   arrayTitles: []
   arraySprites: []
   button: {fileID: 0}
   content: {fileID: 0}
+  m_someOtherScriptOnAnotherGameObject: {fileID: 0}
 --- !u!1 &677471434
 GameObject:
   m_ObjectHideFlags: 0
@@ -1591,7 +1591,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   money: 0
   total_money: 0
-  isFirst: 0
   arrayTitles:
   - "\u041F\u0435\u0440\u0432\u044B\u0435 \u0441\u043E\u0442\u043D\u044F"
   - "\u041F\u0435\u0440\u0432\u0430\u044F \u0442\u044B\u0441\u044F\u0447\u0430"
@@ -1602,6 +1601,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 17b4b5932d755c74da1313d46a1c4348, type: 3}
   button: {fileID: 2529056716316621281, guid: 92e9cf0eb801e324eaedb737f63d273c, type: 3}
   content: {fileID: 1819475782}
+  m_someOtherScriptOnAnotherGameObject: {fileID: 0}
 --- !u!114 &1819475785
 MonoBehaviour:
   m_ObjectHideFlags: 0
