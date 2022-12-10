@@ -693,7 +693,6 @@ MonoBehaviour:
   arraySprites: []
   button: {fileID: 0}
   content: {fileID: 0}
-  m_someOtherScriptOnAnotherGameObject: {fileID: 0}
 --- !u!1 &677471434
 GameObject:
   m_ObjectHideFlags: 0
@@ -872,7 +871,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.9450981, g: 1, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1035,8 +1034,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 5bd5d8ba2a7f59e438d4241c9f63359d, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1601,7 +1600,6 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 17b4b5932d755c74da1313d46a1c4348, type: 3}
   button: {fileID: 2529056716316621281, guid: 92e9cf0eb801e324eaedb737f63d273c, type: 3}
   content: {fileID: 1819475782}
-  m_someOtherScriptOnAnotherGameObject: {fileID: 0}
 --- !u!114 &1819475785
 MonoBehaviour:
   m_ObjectHideFlags: 0

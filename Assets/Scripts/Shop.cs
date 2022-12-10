@@ -13,10 +13,15 @@ public class Shop : MonoBehaviour
     public int total_money;
     public int tickmoney;
 
-    public int[] multiplayer = new int[5] {1, 2, 5, 7, 10}; // miltiplayer buffs
+    public int[] multi = {1, 2, 5, 7, 10};// miltiplayer buffs
     public int[] intbuffs = new int[5]; 
     public string buffs; //buffs
-    public int[] prises = { 100, 200, 500, 700, 1000 }; //shop prises
+    public string prise; //shop prises
+    public int[] prises = new int[5];
+
+    public int[] baseMass = {100,200,500,700,1000};
+
+    public double economicMultipler = 1.07;
     
 
     public string[] arrayTitles; //for achievments titles
@@ -33,6 +38,9 @@ public class Shop : MonoBehaviour
         tickmoney = PlayerPrefs.GetInt("tickmoney");
         if (PlayerPrefs.GetString("buffs") == "0") buffs = "0,0,0,0,0";
         else buffs = PlayerPrefs.GetString("buffs");
+        if (PlayerPrefs.GetString("prise") == "0") prise = "100,200,500,700,1000";
+        else prise = PlayerPrefs.GetString("prise");
+        prises = StringToArray(prise);
         intbuffs = StringToArray(buffs);
 
         _group = GetComponent<VerticalLayoutGroup>();
@@ -50,6 +58,8 @@ public class Shop : MonoBehaviour
         return temp_arr_int;
     }
 
+    
+
     void setBuffs()
     {
         RectTransform rectT = content.GetComponent<RectTransform>();
@@ -66,7 +76,8 @@ public class Shop : MonoBehaviour
             for (var i = 0; i < arrayTitles.Length; i++)
             {
                 var pr = Instantiate(button, transform);
-                pr.GetComponentInChildren<Text>().text = arrayTitles[i] + " " + intbuffs[i]; // text of each component
+                pr.GetComponentsInChildren<Text>()[0].text = arrayTitles[i] + " " + intbuffs[i]; // text of each component
+                pr.GetComponentsInChildren<Text>()[1].text = "Стоимость: " + prises[i]; // text of each component
                 pr.GetComponentInChildren<Image>().sprite = arraySprites[i]; // image of each component
                 var i1 = i;
                 if (!Prises(i)) 
@@ -90,42 +101,92 @@ public class Shop : MonoBehaviour
         switch (id)
         {
             case 0:
-                if (money >= prises[id])
+                if (money >= (int)prises[id])
                 {
-                    money -= prises[id];
+                    money -= (int)prises[id];
                     intbuffs[id]++;
-                    PlayerPrefs.SetInt("money", money);  
+                    prises[id] = (int)(baseMass[id] * Mathf.Pow((float)economicMultipler, intbuffs[id]));
+                    Debug.Log(prises[id]);
+                    string tempString = "";
+                    for(int k = 0; k < 5; k++){
+                        tempString += prises[k] + ",";
+                    }
+                    tempString = tempString.Remove(tempString.Length - 1, 1);
+                    Debug.Log(tempString);
+                    prise = PlayerPrefs.GetString("prise");
+                    PlayerPrefs.SetString("prise",tempString);
+                    PlayerPrefs.SetInt("money", money);
                 }
                 break;
             case 1:
-                if (money >= prises[id])
+                if (money >= (int)prises[id])
                 {
-                    money -= prises[id];
+                    money -= (int)prises[id];
                     intbuffs[id]++;
+                    prises[id] = (int)(baseMass[id] * Mathf.Pow((float)economicMultipler, intbuffs[id]));
+                    Debug.Log(prises[id]);
+                    string tempString = "";
+                    for(int k = 0; k < 5; k++){
+                        tempString += prises[k] + ",";
+                    }
+                    tempString = tempString.Remove(tempString.Length - 1, 1);
+                    Debug.Log(tempString);
+                    prise = PlayerPrefs.GetString("prise");
+                    PlayerPrefs.SetString("prise",tempString);
                     PlayerPrefs.SetInt("money", money);
                 }
                 break;
             case 2:
-                if (money >= prises[id])
+                if (money >= (int)prises[id])
                 {
-                    money -= prises[id];
+                    money -= (int)prises[id];
                     intbuffs[id]++;
+                    prises[id] = (int)(baseMass[id] * Mathf.Pow((float)economicMultipler, intbuffs[id]));
+                    Debug.Log(prises[id]);
+                    string tempString = "";
+                    for(int k = 0; k < 5; k++){
+                        tempString += prises[k] + ",";
+                    }
+                    tempString = tempString.Remove(tempString.Length - 1, 1);
+                    Debug.Log(tempString);
+                    prise = PlayerPrefs.GetString("prise");
+                    PlayerPrefs.SetString("prise",tempString);
                     PlayerPrefs.SetInt("money", money);
                 } 
                 break;
             case 3:
-                if (money >= prises[id])
+                if (money >= (int)prises[id])
                 {
-                    money -= prises[id];
+                    money -= (int)prises[id];
                     intbuffs[id]++;
+                    prises[id] = (int)(baseMass[id] * Mathf.Pow((float)economicMultipler, intbuffs[id]));
+                    Debug.Log(prises[id]);
+                    string tempString = "";
+                    for(int k = 0; k < 5; k++){
+                        tempString += prises[k] + ",";
+                    }
+                    tempString = tempString.Remove(tempString.Length - 1, 1);
+                    Debug.Log(tempString);
+                    prise = PlayerPrefs.GetString("prise");
+                    PlayerPrefs.SetString("prise",tempString);
                     PlayerPrefs.SetInt("money", money);
                 }
                 break;
             case 4:
-                if (money >= prises[id])
+                if (money >= (int)prises[id])
                 {
-                    money -= prises[id];
+                    money -= (int)prises[id];
                     intbuffs[id]++;
+                    prises[id] = (int)(baseMass[id] * Mathf.Pow((float)economicMultipler, intbuffs[id]));
+                    Debug.Log(prises[id]);
+                    string tempString = "";
+                    for(int k = 0; k < 5; k++){
+                        tempString += prises[k] + ",";
+                    }
+                    tempString = tempString.Remove(tempString.Length - 1, 1);
+                    Debug.Log(tempString);
+                    prise = PlayerPrefs.GetString("prise");
+                    PlayerPrefs.SetString("prise",tempString);
                     PlayerPrefs.SetInt("money", money);
                 }
                 break;
@@ -145,8 +206,8 @@ public class Shop : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         for (int i = 0; i < intbuffs.Length; i++)
         {
-            Debug.Log(intbuffs[i] + " * " + multiplayer[i]);
-            money += intbuffs[i] * multiplayer[i];
+            
+            money += intbuffs[i] * multi[i];
         }
         tickmoney = money - PlayerPrefs.GetInt("money");
         PlayerPrefs.SetInt("tickmoney", tickmoney);
@@ -164,5 +225,15 @@ public class Shop : MonoBehaviour
     public void ToMenu()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void Rerunbiba()
+    {
+        PlayerPrefs.SetString("prise","100,200,500,700,1000");
+        PlayerPrefs.SetInt("money", 0);
+        PlayerPrefs.SetInt("tickmoney", 0);
+        PlayerPrefs.SetInt("total_money", 0);
+        PlayerPrefs.SetString("buffs","0,0,0,0,0");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

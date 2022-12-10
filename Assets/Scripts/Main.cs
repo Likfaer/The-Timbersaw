@@ -27,7 +27,7 @@ public class Main : MonoBehaviour
         buffs = PlayerPrefs.GetInt("buffs");
 
         m_someOtherScriptOnAnotherGameObject.IdleFarm();
-        StartCoroutine(CoinsUpdate());
+        //StartCoroutine(CoinsUpdate());
     }
 
     public void ButtonClick()
@@ -54,6 +54,8 @@ public class Main : MonoBehaviour
 
     public void ToShop()
     {
+        PlayerPrefs.SetInt("total_money", total_money);
+        PlayerPrefs.SetInt("money", money);
         SceneManager.LoadScene(2);
     }
 

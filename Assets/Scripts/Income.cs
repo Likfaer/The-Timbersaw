@@ -9,7 +9,7 @@ public class Income : MonoBehaviour
     public int money;
     public int total_money;
     public int[] intbuffs = new int[5];
-    public int[] multiplayer = { 1, 1, 1, 1, 1 };
+    public int[] multi = {1, 2, 5, 7, 10};// miltiplayer buffs
     public string buffs;
     // Start is called before the first frame update
     public void Start()
@@ -49,7 +49,7 @@ public class Income : MonoBehaviour
         //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         for (int i = 0; i < intbuffs.Length; i++)
         {
-            money += intbuffs[i] * multiplayer[i];
+            money += intbuffs[i] * multi[i];
         }
         //Debug.Log(money);
         PlayerPrefs.SetInt("money", money);
