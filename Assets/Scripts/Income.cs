@@ -11,6 +11,7 @@ public class Income : MonoBehaviour
     public int[] intbuffs = new int[5];
     public int[] multi = {1, 2, 5, 7, 10};// miltiplayer buffs
     public string buffs;
+    public AudioSource audioSource;
     // Start is called before the first frame update
     public void Start()
     {
@@ -33,6 +34,14 @@ public class Income : MonoBehaviour
             temp_arr_int[i] = System.Int32.Parse(temp_arr_string[i].ToString());
         }
         return temp_arr_int;
+    }
+    public void ButtonClickMas()
+    {
+        money++;
+        total_money++;
+        PlayerPrefs.SetInt("money", money);
+        PlayerPrefs.SetInt("total_money", total_money);
+        audioSource.Play();
     }
     // Update is called once per frame
     void Update()

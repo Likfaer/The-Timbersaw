@@ -27,7 +27,7 @@ public class Main : MonoBehaviour
         buffs = PlayerPrefs.GetInt("buffs");
 
         m_someOtherScriptOnAnotherGameObject.IdleFarm();
-        //StartCoroutine(CoinsUpdate());
+        StartCoroutine(CoinsUpdate());
     }
 
     public void ButtonClick()

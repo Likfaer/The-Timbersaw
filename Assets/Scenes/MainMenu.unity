@@ -698,8 +698,9 @@ MonoBehaviour:
   money: 0
   total_money: 0
   intbuffs: 0000000000000000000000000000000000000000
-  multiplayer: 0100000001000000010000000100000001000000
+  multi: 010000000200000005000000070000000a000000
   buffs: 
+  audioSource: {fileID: 0}
 --- !u!1 &670462995
 GameObject:
   m_ObjectHideFlags: 0
@@ -1157,9 +1158,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 519420030}
-          m_TargetAssemblyTypeName: Main, Assembly-CSharp
-          m_MethodName: ButtonClick
+        - m_Target: {fileID: 519420034}
+          m_TargetAssemblyTypeName: Income, Assembly-CSharp
+          m_MethodName: ButtonClickMas
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

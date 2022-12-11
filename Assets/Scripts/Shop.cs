@@ -76,9 +76,10 @@ public class Shop : MonoBehaviour
             for (var i = 0; i < arrayTitles.Length; i++)
             {
                 var pr = Instantiate(button, transform);
-                pr.GetComponentsInChildren<Text>()[0].text = arrayTitles[i] + " " + intbuffs[i]; // text of each component
-                pr.GetComponentsInChildren<Text>()[1].text = "Стоимость: " + prises[i]; // text of each component
-                pr.GetComponentInChildren<Image>().sprite = arraySprites[i]; // image of each component
+                // pr.GetComponentsInChildren<Text>()[0].text = System.Convert.ToString(arrayTitles[i]); // text of each component
+                // pr.GetComponentsInChildren<Text>()[1].text = System.Convert.ToString(intbuffs[i]);
+                // pr.GetComponentsInChildren<Text>()[2].text = System.Convert.ToString(prises[i]); // text of each component
+                // pr.GetComponentInChildren<Image>().sprite = System.Convert.ToString(arraySprites[i]); // image of each component
                 var i1 = i;
                 if (!Prises(i)) 
                 {
