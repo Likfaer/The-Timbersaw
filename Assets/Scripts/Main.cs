@@ -6,31 +6,30 @@ using UnityEngine.SceneManagement;
 
 public class Main : MonoBehaviour
 {
+    //BASE SETUP FOR EACH SCENE
+    //text visual info
     public Text MoneyText;
     public Text IncomeText;
-    [SerializeField] int money;
+    public int money;
     public int total_money;
     public int tickmoney;
-
-    public int multiplayer; // miltiplayer buffs
-    public int buffs; //buffs
+    //links to launch other scripts
     public AudioSource audioSource;
-
-    public Income m_someOtherScriptOnAnotherGameObject;
+    public Income IncomeLink;
     private void Start()
     {
-        m_someOtherScriptOnAnotherGameObject = GameObject.FindObjectOfType(typeof(Income)) as Income;
-        audioSource = GetComponent<AudioSource>();
+        //setup main values
         money = PlayerPrefs.GetInt("money");
         total_money = PlayerPrefs.GetInt("total_money");
         tickmoney = PlayerPrefs.GetInt("tickmoney");
-        buffs = PlayerPrefs.GetInt("buffs");
-
-        m_someOtherScriptOnAnotherGameObject.IdleFarm();
+        //setup other scripts
+        audioSource = GetComponent<AudioSource>();
+        IncomeLink = GameObject.FindObjectOfType(typeof(Income)) as Income;
+        IncomeLink.IdleFarm();
         StartCoroutine(CoinsUpdate());
     }
 
-    public void ButtonClick()
+    public void ButtonClickVisual()
     {
         money++;
         total_money++;
@@ -40,10 +39,9 @@ public class Main : MonoBehaviour
     }
     IEnumerator CoinsUpdate()
     {
-        yield return new WaitForSeconds(1);
-        money = m_someOtherScriptOnAnotherGameObject.money;
-        //Debug.Log(money);
-        PlayerPrefs.SetInt("money", money);
+        yield return new WaitForSeconds(0);
+        money = IncomeLink.money;
+        tickmoney = IncomeLink.tickmoney;
         StartCoroutine(CoinsUpdate());
     }
 
@@ -54,8 +52,6 @@ public class Main : MonoBehaviour
 
     public void ToShop()
     {
-        PlayerPrefs.SetInt("total_money", total_money);
-        PlayerPrefs.SetInt("money", money);
         SceneManager.LoadScene(2);
     }
 

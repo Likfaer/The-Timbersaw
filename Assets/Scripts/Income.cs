@@ -6,42 +6,46 @@ using UnityEngine.SceneManagement;
 
 public class Income : MonoBehaviour
 {
+    //main values
     public int money;
     public int total_money;
+    public int tickmoney;
+    //values for items
+    public int[] multi = {1, 2, 5, 7, 10};
     public int[] intbuffs = new int[5];
-    public int[] multi = {1, 2, 5, 7, 10};// miltiplayer buffs
     public string buffs;
+    //links to launch other scripts
     public AudioSource audioSource;
     // Start is called before the first frame update
     public void Start()
     {
+        //setup main values
         money = PlayerPrefs.GetInt("money");
         total_money = PlayerPrefs.GetInt("total_money");
-        Debug.Log(">" +  PlayerPrefs.GetString("buffs") + "<PPbuffs");
+        tickmoney = PlayerPrefs.GetInt("tickmoney");
         if (PlayerPrefs.GetString("buffs") == null) buffs = "0,0,0,0,0";
         else buffs = PlayerPrefs.GetString("buffs");
-        Debug.Log(">" +  PlayerPrefs.GetString("buffs") + "<PPbuffs");
-        Debug.Log(">" + buffs + "<buffs");
+
         intbuffs = StringToArray(buffs);
         StartCoroutine(IdleFarm());
     }
-    int[] StringToArray(string teamp_line)
+    int[] StringToArray(string temp_line)
     {
         int[] temp_arr_int = new int[5];
-        string[] temp_arr_string = teamp_line.Split(',');
+        string[] temp_arr_string = temp_line.Split(',');
+        System.Console.WriteLine(temp_line);
         for (int i = 0; i < temp_arr_string.Length; i++)
         {
             temp_arr_int[i] = System.Int32.Parse(temp_arr_string[i].ToString());
         }
         return temp_arr_int;
     }
-    public void ButtonClickMas()
+    public void ButtonClickReal()
     {
         money++;
         total_money++;
         PlayerPrefs.SetInt("money", money);
         PlayerPrefs.SetInt("total_money", total_money);
-        audioSource.Play();
     }
     // Update is called once per frame
     void Update()
@@ -55,13 +59,13 @@ public class Income : MonoBehaviour
     public IEnumerator IdleFarm()
     {
         yield return new WaitForSeconds(1);
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         for (int i = 0; i < intbuffs.Length; i++)
         {
             money += intbuffs[i] * multi[i];
         }
-        //Debug.Log(money);
+        tickmoney = money - PlayerPrefs.GetInt("money");
         PlayerPrefs.SetInt("money", money);
+        PlayerPrefs.SetInt("tickmoney", tickmoney);
         StartCoroutine(IdleFarm());
     }
 }
