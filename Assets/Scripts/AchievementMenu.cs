@@ -155,6 +155,10 @@ public class AchievementMenu : MonoBehaviour
                 }
                 if (!IsTaken(3))
                 {
+                    item.interactable = true;
+                }
+                else
+                {
                     item.interactable = false;
                 }
             }

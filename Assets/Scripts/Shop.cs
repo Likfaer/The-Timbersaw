@@ -91,7 +91,7 @@ public class Shop : MonoBehaviour
             {
                 var pr = Instantiate(button, transform);
                 pr.GetComponentsInChildren<Text>()[0].text = System.Convert.ToString(arrayTitles[i]);
-                pr.GetComponentsInChildren<Text>()[1].text = System.Convert.ToString(intbuffs[i]);
+                pr.GetComponentsInChildren<Text>()[1].text = System.Convert.ToString(intbuffs[i] + "(" + multi[i] + " в сек.)");
                 pr.GetComponentsInChildren<Text>()[2].text = System.Convert.ToString(prises[i]);
                 pr.GetComponentsInChildren<Text>()[3].text = System.Convert.ToString(intbuffs[i] * multi[i]);
                 var i1 = i;
@@ -144,9 +144,9 @@ public class Shop : MonoBehaviour
         for (int i = 0; i < intbuffs.Length; i++)
         {
             list[i].GetComponentsInChildren<Text>()[0].text = System.Convert.ToString(arrayTitles[i]);
-            list[i].GetComponentsInChildren<Text>()[1].text = System.Convert.ToString(intbuffs[i]);
+            list[i].GetComponentsInChildren<Text>()[1].text = System.Convert.ToString(intbuffs[i] + " (" + multi[i] + " в сек.)");
             list[i].GetComponentsInChildren<Text>()[2].text = System.Convert.ToString(prises[i]);
-            list[i].GetComponentsInChildren<Text>()[3].text = System.Convert.ToString(intbuffs[i] * multi[i]);
+            list[i].GetComponentsInChildren<Text>()[3].text = System.Convert.ToString(intbuffs[i] * multi[i] );
             if (!Prises(i))
             {
                 list[i].GetComponent<Button>().interactable = false;
