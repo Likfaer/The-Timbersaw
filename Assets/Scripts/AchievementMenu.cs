@@ -22,6 +22,7 @@ public class AchievementMenu : MonoBehaviour
     public string[] arrayTitles; //for achievments titles
     public Sprite[] arraySprites; //for achievments sprites
     public GameObject button; // Achievement button (for taking achievement)
+    public GameObject buttonchecked;
     public GameObject content; // list of buttons
     private List<GameObject> list = new List<GameObject>();
     private VerticalLayoutGroup _group;
@@ -39,20 +40,8 @@ public class AchievementMenu : MonoBehaviour
         //setup other scripts
         IncomeLink = GameObject.FindObjectOfType(typeof(Income)) as Income;
         IncomeLink.IdleFarm();
-        StartCoroutine(CoinsUpdate());
     }
-    void Zaika()
-    {
-        Button[] buttons = FindObjectsOfType<Button>();
-        foreach (var item in buttons)
-        {
-            if (item.gameObject.name == "CrolikButton")
-            {
-                item.interactable = false;
-                item.enabled = false;
-            }
-        }
-    }
+
     private void RemovedList()
     {
         foreach (var elem in list)
@@ -74,25 +63,29 @@ public class AchievementMenu : MonoBehaviour
             Destroy(pr1);
             for (var i = 0; i < arrayTitles.Length; i++)
             {
-                var pr = Instantiate(button, transform);
-                pr.GetComponentInChildren<Text>().text = arrayTitles[i]; // text of each component
-                //pr.GetComponentsInChildren<Image>()[0].sprite = arraySprites[i]; // image of each component
                 string line = "Ach" + i;
-                //Debug.Log(PlayerPrefs.GetInt(line));
                 if (PlayerPrefs.GetInt(line) == 1)
                 {
+                    var pr = Instantiate(buttonchecked, transform); 
                     pr.GetComponent<Button>().interactable = false;
+                    pr.GetComponentInChildren<Text>().text = arrayTitles[i];
+                    list.Add(pr);
                 }
-                var i1 = i;
-                pr.GetComponent<Button>().onClick.AddListener(() => GetAchievement(i1));
-                list.Add(pr);
+                else
+                {
+                    var pr = Instantiate(button, transform);
+                    pr.GetComponentInChildren<Text>().text = arrayTitles[i];
+                    var i1 = i;
+                    pr.GetComponent<Button>().onClick.AddListener(() => GetAchievement(i1));
+                    pr.GetComponent<Button>().onClick.AddListener(() => SceneManager.LoadScene(SceneManager.GetActiveScene().name));
+                    list.Add(pr);
+                }
             }
         }
     }
     bool IsTaken(int id)
     {
         string line = "Ach" + id;
-        //Debug.Log(line + " " + PlayerPrefs.GetInt(line));
         if (PlayerPrefs.GetInt(line) == 0)
         {
             PlayerPrefs.SetInt(line, 1);
@@ -107,33 +100,33 @@ public class AchievementMenu : MonoBehaviour
         switch (id)
         {
             case 0:
-                if (money > 100)
+                if (money >= 100)
                 {
                     if (IsTaken(id))
                     {
                         PlayerPrefs.SetInt(line, 1);
-                        money += 10;
+                        money += 250;
                         PlayerPrefs.SetInt("money", money);
                     }
                 }
                 break;
             case 1:
-                if (money > 1000)
+                if (money >= 1000)
                 {
                     if (IsTaken(id))
                     {
-                        money += 100;
+                        money += 750;
                         PlayerPrefs.SetInt(line, 1);
                         PlayerPrefs.SetInt("money", money);
                     }
                 }
                 break;
             case 2:
-                if (PlayerPrefs.GetInt("Cralya") == 1)
+                if (total_money >= 500)
                 {
                     if (IsTaken(id))
                     {
-                        money += 1000;
+                        money += 10000;
                         PlayerPrefs.SetInt(line, 1);
                         PlayerPrefs.SetInt("money", money);
                     }
@@ -141,17 +134,33 @@ public class AchievementMenu : MonoBehaviour
                 break;
         }
     }
-    public void Cralya()
+    void Zaika()
     {
-        PlayerPrefs.SetInt("Cralya", 1);
+        Button[] buttons = FindObjectsOfType<Button>();
+        foreach (var item in buttons)
+        {
+            if (item.gameObject.name == "CrolikButton")
+            {
+                if (total_money < 500)
+                {
+                    item.interactable = false;
+                    item.enabled = false;
+                    item.image.enabled = false;
+                }
+                else
+                {
+                    item.interactable = true;
+                    item.enabled = true;
+                    item.image.enabled = true;
+                }
+                if (!IsTaken(3))
+                {
+                    item.interactable = false;
+                }
+            }
+        }
     }
-    IEnumerator CoinsUpdate()
-    {
-        yield return new WaitForSeconds(0);
-        money = IncomeLink.money;
-        tickmoney = IncomeLink.tickmoney;
-        StartCoroutine(CoinsUpdate());
-    }
+
     public void ToMenu()
     {
         SceneManager.LoadScene(0);
@@ -159,6 +168,8 @@ public class AchievementMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        money = IncomeLink.money;
+        tickmoney = IncomeLink.tickmoney;
         MoneyText.text = money.ToString();
         IncomeText.text = tickmoney.ToString();
     }

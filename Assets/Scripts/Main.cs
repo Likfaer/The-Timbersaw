@@ -26,7 +26,6 @@ public class Main : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         IncomeLink = GameObject.FindObjectOfType(typeof(Income)) as Income;
         IncomeLink.IdleFarm();
-        StartCoroutine(CoinsUpdate());
     }
 
     public void ButtonClickVisual()
@@ -36,13 +35,6 @@ public class Main : MonoBehaviour
         PlayerPrefs.SetInt("money", money);
         PlayerPrefs.SetInt("total_money", total_money);
         audioSource.Play();
-    }
-    IEnumerator CoinsUpdate()
-    {
-        yield return new WaitForSeconds(0);
-        money = IncomeLink.money;
-        tickmoney = IncomeLink.tickmoney;
-        StartCoroutine(CoinsUpdate());
     }
 
     public void ToAchievements()
@@ -58,6 +50,8 @@ public class Main : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        money = IncomeLink.money;
+        tickmoney = IncomeLink.tickmoney;
         MoneyText.text = money.ToString();
         IncomeText.text = tickmoney.ToString();
     }

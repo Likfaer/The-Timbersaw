@@ -21,10 +21,10 @@ public class Shop : MonoBehaviour
     public Income IncomeLink;
     //values for items
     public double economicMultipler = 1.07;
-    public int[] baseMass = { 100, 200, 500, 700, 1000 };
-    public int[] multi = {1, 2, 5, 7, 10};
-    public int[] intbuffs = new int[5];
-    public int[] prises = new int[5];
+    public int[] baseMass;
+    public int[] multi;
+    public int[] intbuffs = new int[12];
+    public int[] prises = new int[12];
     public string buffs; //buffs
     public string prise; //shop prises
     // list of buttons
@@ -41,9 +41,17 @@ public class Shop : MonoBehaviour
         total_money = PlayerPrefs.GetInt("total_money");
         tickmoney = PlayerPrefs.GetInt("tickmoney");
 
-        if (PlayerPrefs.GetString("buffs") == "0") buffs = "0,0,0,0,0";
+        if (PlayerPrefs.GetString("buffs") == "0")
+        {
+            PlayerPrefs.SetString("buffs", "0,0,0,0,0,0,0,0,0,0,0,0");
+            buffs = "0,0,0,0,0,0,0,0,0,0,0,0";
+        }
         else buffs = PlayerPrefs.GetString("buffs");
-        if (PlayerPrefs.GetString("prise") == "0") prise = "100,200,500,700,1000";
+        if (PlayerPrefs.GetString("prise") == "0")
+        {
+            PlayerPrefs.SetString("prise", "10,50,100,200,500,700,1000,2000,5000,10000,20000,50000");
+            prise = "10,50,100,200,500,700,1000,2000,5000,10000,20000,50000";
+        }
         else prise = PlayerPrefs.GetString("prise");
         prises = StringToArray(prise);
         intbuffs = StringToArray(buffs);
@@ -53,11 +61,10 @@ public class Shop : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         IncomeLink = GameObject.FindObjectOfType(typeof(Income)) as Income;
         IncomeLink.IdleFarm();
-        StartCoroutine(CoinsUpdate());
     }
     int[] StringToArray(string temp_line)
     {
-        int[] temp_arr_int = new int[5];
+        int[] temp_arr_int = new int[12];
         string[] temp_arr_string = temp_line.Split(',');
         System.Console.WriteLine(temp_line);
         for (int i = 0; i < temp_arr_string.Length; i++)
@@ -87,7 +94,6 @@ public class Shop : MonoBehaviour
                 pr.GetComponentsInChildren<Text>()[1].text = System.Convert.ToString(intbuffs[i]);
                 pr.GetComponentsInChildren<Text>()[2].text = System.Convert.ToString(prises[i]);
                 pr.GetComponentsInChildren<Text>()[3].text = System.Convert.ToString(intbuffs[i] * multi[i]);
-                // pr.GetComponentInChildren<Image>().sprite = System.Convert.ToString(arraySprites[i]); // image of each component
                 var i1 = i;
                 if (!Prises(i)) 
                 {
@@ -106,53 +112,12 @@ public class Shop : MonoBehaviour
     }
     void GetBuff(int id)
     {
-        switch (id)
+        if (money >= (int)prises[id])
         {
-            case 0:
-                if (money >= (int)prises[id])
-                {
-                    IncomeLink.money -= (int)prises[id];
-                    intbuffs[id]++;
-                    prises[id] = (int)(baseMass[id] * Mathf.Pow((float)economicMultipler, intbuffs[id]));
-                    PlayerPrefs.SetInt("money", money);
-                }
-                break;
-            case 1:
-                if (money >= (int)prises[id])
-                {
-                    IncomeLink.money -= (int)prises[id];
-                    intbuffs[id]++;
-                    prises[id] = (int)(baseMass[id] * Mathf.Pow((float)economicMultipler, intbuffs[id]));
-                    PlayerPrefs.SetInt("money", money);
-                }
-                break;
-            case 2:
-                if (money >= (int)prises[id])
-                {
-                    IncomeLink.money -= (int)prises[id];
-                    intbuffs[id]++;
-                    prises[id] = (int)(baseMass[id] * Mathf.Pow((float)economicMultipler, intbuffs[id]));
-                    PlayerPrefs.SetInt("money", money);
-                } 
-                break;
-            case 3:
-                if (money >= (int)prises[id])
-                {
-                    IncomeLink.money -= (int)prises[id];
-                    intbuffs[id]++;
-                    prises[id] = (int)(baseMass[id] * Mathf.Pow((float)economicMultipler, intbuffs[id]));
-                    PlayerPrefs.SetInt("money", money);
-                }
-                break;
-            case 4:
-                if (money >= (int)prises[id])
-                {
-                    IncomeLink.money -= (int)prises[id];
-                    intbuffs[id]++;
-                    prises[id] = (int)(baseMass[id] * Mathf.Pow((float)economicMultipler, intbuffs[id]));
-                    PlayerPrefs.SetInt("money", money);
-                }
-                break;
+            IncomeLink.money -= (int)prises[id];
+            intbuffs[id]++;
+            prises[id] = (int)(baseMass[id] * Mathf.Pow((float)economicMultipler, intbuffs[id]));
+            PlayerPrefs.SetInt("money", money);
         }
         string temp_collab = "";
         string tempString = "";
@@ -168,19 +133,31 @@ public class Shop : MonoBehaviour
         prise = PlayerPrefs.GetString("prise");
         PlayerPrefs.SetString("prise",tempString);
     }
-    IEnumerator CoinsUpdate()
-    {
-        yield return new WaitForSeconds(1);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        money = IncomeLink.money;
-        tickmoney = IncomeLink.tickmoney;
-        StartCoroutine(CoinsUpdate());
-    }
+
     // Update is called once per frame
     void Update()
     {
+        money = IncomeLink.money;
+        tickmoney = IncomeLink.tickmoney;
         MoneyText.text = money.ToString();
         IncomeText.text = tickmoney.ToString();
+        for (int i = 0; i < intbuffs.Length; i++)
+        {
+            list[i].GetComponentsInChildren<Text>()[0].text = System.Convert.ToString(arrayTitles[i]);
+            list[i].GetComponentsInChildren<Text>()[1].text = System.Convert.ToString(intbuffs[i]);
+            list[i].GetComponentsInChildren<Text>()[2].text = System.Convert.ToString(prises[i]);
+            list[i].GetComponentsInChildren<Text>()[3].text = System.Convert.ToString(intbuffs[i] * multi[i]);
+            if (!Prises(i))
+            {
+                list[i].GetComponent<Button>().interactable = false;
+                list[i].GetComponent<Image>().color = Color.gray;
+            }
+            else
+            {
+                list[i].GetComponent<Button>().interactable = true;
+                list[i].GetComponent<Image>().color = Color.white;
+            }
+        }
     }
     public void ToMenu()
     {
@@ -189,11 +166,12 @@ public class Shop : MonoBehaviour
 
     public void GameReset()
     {
+        PlayerPrefs.DeleteAll();
         PlayerPrefs.SetInt("money", 0);
         PlayerPrefs.SetInt("tickmoney", 0);
         PlayerPrefs.SetInt("total_money", 0);
-        PlayerPrefs.SetString("buffs","0,0,0,0,0");
-        PlayerPrefs.SetString("prise", "100,200,500,700,1000");
+        PlayerPrefs.SetString("buffs", "0,0,0,0,0,0,0,0,0,0,0,0");
+        PlayerPrefs.SetString("prise", "10,50,100,200,500,700,1000,2000,5000,10000,20000,50000");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

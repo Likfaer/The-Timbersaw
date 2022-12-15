@@ -11,8 +11,8 @@ public class Income : MonoBehaviour
     public int total_money;
     public int tickmoney;
     //values for items
-    public int[] multi = {1, 2, 5, 7, 10};
-    public int[] intbuffs = new int[5];
+    public int[] multi;
+    public int[] intbuffs = new int[12];
     public string buffs;
     //links to launch other scripts
     public AudioSource audioSource;
@@ -23,15 +23,14 @@ public class Income : MonoBehaviour
         money = PlayerPrefs.GetInt("money");
         total_money = PlayerPrefs.GetInt("total_money");
         tickmoney = PlayerPrefs.GetInt("tickmoney");
-        if (PlayerPrefs.GetString("buffs") == null) buffs = "0,0,0,0,0";
+        if (PlayerPrefs.GetString("buffs") == null) buffs = "0,0,0,0,0,0,0,0,0,0,0,0";
         else buffs = PlayerPrefs.GetString("buffs");
-
         intbuffs = StringToArray(buffs);
         StartCoroutine(IdleFarm());
     }
     int[] StringToArray(string temp_line)
     {
-        int[] temp_arr_int = new int[5];
+        int[] temp_arr_int = new int[12];
         string[] temp_arr_string = temp_line.Split(',');
         System.Console.WriteLine(temp_line);
         for (int i = 0; i < temp_arr_string.Length; i++)
@@ -50,7 +49,8 @@ public class Income : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        buffs = PlayerPrefs.GetString("buffs");
+        intbuffs = StringToArray(buffs);
     }
     public int GetMoney()
     {
@@ -59,11 +59,12 @@ public class Income : MonoBehaviour
     public IEnumerator IdleFarm()
     {
         yield return new WaitForSeconds(1);
+        tickmoney = 0;
         for (int i = 0; i < intbuffs.Length; i++)
         {
             money += intbuffs[i] * multi[i];
+            tickmoney += intbuffs[i] * multi[i];
         }
-        tickmoney = money - PlayerPrefs.GetInt("money");
         PlayerPrefs.SetInt("money", money);
         PlayerPrefs.SetInt("tickmoney", tickmoney);
         StartCoroutine(IdleFarm());
